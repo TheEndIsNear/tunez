@@ -6,7 +6,7 @@ defmodule Tunez.Music.Album do
     repo Tunez.Repo
 
     references do
-      reference :artist, index?: true
+      reference :artist, index?: true, on_delete: :delete
     end
   end
 
@@ -59,6 +59,11 @@ defmodule Tunez.Music.Album do
     belongs_to :artist, Tunez.Music.Artist do
       allow_nil? false
     end
+  end
+
+  identities do
+    identity :unique_album_names_per_Artist, [:name, :artist_id],
+      message: "already exists for this artist"
   end
 
   def next_year, do: Date.utc_today().year + 1
