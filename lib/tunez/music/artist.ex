@@ -55,4 +55,10 @@ defmodule Tunez.Music.Artist do
       sort year_released: :desc
     end
   end
+
+  aggregates do
+    count :album_count, :albums, public?: true
+    first :latest_album_year_released, :albums, :year_released, public?: true
+    first :cover_image_url, :albums, :cover_image_url
+  end
 end
