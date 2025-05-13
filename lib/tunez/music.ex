@@ -18,7 +18,7 @@ defmodule Tunez.Music do
       define :create_album, action: :create
       define :get_album_by_id, action: :read, get_by: :id
       define :update_album, action: :update
-      define :destroy_alum, action: :destroy
+      define :destroy_album, action: :destroy
     end
   end
 end
