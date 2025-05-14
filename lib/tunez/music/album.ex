@@ -44,9 +44,18 @@ defmodule Tunez.Music.Album do
       authorize_if always()
     end
 
-    policy action(:update) do
+    policy action(:create) do
       authorize_if actor_attribute_equals(:role, :editor)
     end
+
+    policy action([:update, :destroy]) do
+      authorize_if expr(^actor(:role) == :editor and created_by_id == ^actor(:id))
+    end
+  end
+
+  changes do
+    change relate_actor(:created_by, allow_nil?: true), on: [:create]
+    change relate_actor(:updated_by, allow_nil?: true)
   end
 
   validations do
